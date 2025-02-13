@@ -1,9 +1,14 @@
-// const jsonServer = require("json-server");
 import jsonServer from "json-server";
+import fs from "fs";
+import path from "path";
 
 const server = jsonServer.create();
 
-const router = jsonServer.router("db.json");
+const filePath = path.join("db.json");
+const data = fs.readFileSync(filePath, "utf8");
+const db = JSON.parse(data);
+
+const router = jsonServer.router(db);
 
 const middlewares = jsonServer.defaults();
 
